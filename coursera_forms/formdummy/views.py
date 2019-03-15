@@ -1,20 +1,18 @@
 from django.shortcuts import render
 
 from django.views import View
+from .forms import DummyForm
 
 class FormDummyView(View):
     def get(self, request):
+        form = DummyForm()
         # from pdb import set_trace; set_trace()
-        return render(request, "form.html", {})
+        return render(request, "form.html", {'form': form})
 
     def post(self, request):
-        text = request.POST.get('text')
-        grade = request.POST.get('grade')
-        image = request.FILES.get('image')
-        content = image.read()
-        context = {
-            'text': text,
-            'grade': grade,
-            'content': content
-        }
-        return render(request, "form.html", context)
+        form = DummyForm(request.POST)
+        if form.is_valid():
+            context = form.cleaned_data
+            return render(request, "form.html", context)
+        else:
+            return render(request, "error.html", {'error': form.errors})

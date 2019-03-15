@@ -8,7 +8,8 @@
         <h1>Форма отзывов</h1>
         <form method="post" enctype="multipart/form-data" action="/form/">
             {% csrf_token %}
-            <label for="feedback-text">Отзыв:</label>
+            {{ form }}
+<!--            <label for="feedback-text">Отзыв:</label>
             <input id="feedback-text" type="text" name="text" required>
 
             <label for="feedback-grade">Оценка:</label>
@@ -16,11 +17,11 @@
 
             <label for="feedback-image">Фото:</label>
             <input id="feedback-image" type="file" name="image">
-
+-->
             <input id="feedback-submit" type="submit">
         </form>
-        {{ text }}<br>
+        <br>{{ text }}<br>
         {{ grade }}<br>
-        {{ content }}
+        {{ image }}
     </body>
 </html>
